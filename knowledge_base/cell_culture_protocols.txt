@@ -1,0 +1,146 @@
+SOURCE: FDA Guidance for Industry: Human Somatic Cell Therapy and Gene Therapy (1998/2024)
+LINK: https://www.fda.gov/media/73976/download
+===========================================================================
+
+SECTION 1: MANUFACTURING AND CONTROL (CMC)
+-------------------------------------------
+(Ref: Section III. Chemistry, Manufacturing, and Controls)
+
+For human clinical use, cell culture processes must adhere to Good Manufacturing Practices (GMP).
+
+1. Reagents and Materials:
+   - "Reagents used in the manufacturing process (e.g., fetal bovine serum, trypsin, growth factors) should be of appropriate grade (e.g., USP, EP, or marked 'for clinical use') to minimize risk."
+   - All animal-derived components (e.g., bovine serum) must be sourced from countries certified free of BSE/TSE.
+
+2. Cell Banking System:
+   - Master Cell Bank (MCB) and Working Cell Bank (WCB) must be characterized for identity, sterility, and stability.
+   - Identity testing (e.g., isoenzyme analysis, DNA fingerprinting) is required to confirm the species and origin of the cells.
+
+3. Culture Conditions:
+   - "Procedures for cell culture... should be well defined and documented."
+   - Critical process parameters (CPP) such as temperature, pH, CO2, and nutrient levels must be monitored and kept within validated ranges.
+
+===========================================================================
+SOURCE: USP <1046> Cell and Gene Therapy Products
+LINK: https://www.usp.org/biologics/cell-gene-therapy
+===========================================================================
+
+SECTION 2: SAFETY AND CONTAMINATION CONTROL
+--------------------------------------------
+(Ref: USP Chapter <1046> - Safety Tests)
+
+Strict testing is mandatory to ensure patient safety before product release.
+
+1. Sterility Testing (USP <71>):
+   - Must be performed on the final product.
+   - Rapid sterility tests may be used for products with short shelf-lives (like fresh skin grafts) if validated against the compendial method.
+
+2. Mycoplasma Testing (USP <63>):
+   - Mycoplasma contamination is a critical risk.
+   - Testing must be performed at multiple stages: (1) Master Cell Bank, (2) Working Cell Bank, and (3) Pre-harvest/Final Product.
+   - Methods: Culture-based (28 days) or PCR-based (if validated for sensitivity).
+
+3. Endotoxin Testing (USP <85>):
+   - Limits must be established based on the patient's body weight and route of administration (Limit: 5 EU/kg body weight/hr).
+
+===========================================================================
+SOURCE: EMA Guideline on Human Cell-Based Medicinal Products
+LINK: https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-human-cell-based-medicinal-products_en.pdf
+===========================================================================
+
+SECTION 3: TRACEABILITY AND VIGILANCE
+--------------------------------------
+(Ref: EMEA/CHMP/410869/2006 - Section 4.5)
+
+For clinical trials and marketing authorization:
+
+1. Traceability:
+   - A bidirectional tracking system must be in place.
+   - Linkage: Donor -> Manufacturing Process -> Product -> Recipient.
+   - Data must be kept for a minimum of 30 years.
+
+2. Starting Materials (Section 4.1.2):
+   - Skin biopsies (autologous) must be procured from healthy skin areas.
+   - Testing of the donor for infectious agents (HIV, HBV, HCV, Syphilis) is mandatory under Directive 2004/23/EC.
+
+===========================================================================
+SOURCE: ISO 10993-5: Biological Evaluation of Medical Devices
+LINK: https://www.iso.org/obp/ui/#iso:std:iso:10993:-5:en
+===========================================================================
+
+SECTION 4: CYTOTOXICITY AND BIOCOMPATIBILITY
+---------------------------------------------
+(Ref: ISO 10993-5:2009 - Tests for in vitro cytotoxicity)
+
+Any material coming into contact with the graft (media, scaffolds, flasks) must be evaluated.
+
+1. Test Method:
+   - Direct Contact Test: Cells are grown directly on the material.
+   - Extract Test: Material is incubated in media, and the "extract" is applied to cells.
+   
+2. Evaluation Criteria:
+   - A reduction in cell viability by more than 30% is considered a cytotoxic effect.
+   - Morphology must be graded (Grade 0: None to Grade 4: Severe destruction).
+
+===========================================================================
+SOURCE: FACT-JACIE International Standards (8th Edition)
+LINK: https://www.ebmt.org/sites/default/files/2024-12/STS_5_2_042_HCT_AccreditationMANUAL-8thEd_8_3_R4_10182024_web.pdf
+===========================================================================
+
+SECTION 5: PROCESS VALIDATION AND LABELS
+-----------------------------------------
+(Ref: Section D - Clinical Program Standards)
+
+1. Labeling:
+   - Products must be clearly labeled with:
+     - Unique Patient Identifier
+     - Proper Name of Product
+     - "For Autologous Use Only" (if applicable)
+     - Expiration Date and Time
+     - "Do Not Irradiate" (if applicable)
+
+2. Transportation:
+   - Temperature during transport must be monitored and recorded (e.g., using data loggers).
+   - Validated shipping containers must maintain the specified temperature range (e.g., 2-8°C or 20-24°C) for the duration of transit.
+
+===========================================================================
+SOURCE: FDA 21 CFR Part 1271 - Human Cells, Tissues, and Cellular and Tissue-Based Products (HCT/Ps)
+LINK: https://www.ecfr.gov/current/title-21/chapter-I/subchapter-L/part-1271
+===========================================================================
+
+SECTION 6: PROCESS DEVIATION AND INNOVATION
+--------------------------------------------
+(Ref: 21 CFR 1271.160 - Establishment and Maintenance of Procedures)
+
+Important Note on "Accelerated Growth" or Temperature Modulation:
+
+1. Standard Conditions:
+   - The established standard for human cell culture is 37°C ± 0.5°C.
+
+2. Validating Deviations:
+   - Any deviation from standard procedures (e.g., raising temperature to 37.5°C to accelerate growth) is considered a "Major Change."
+   - Requirement: You must perform **Validation Studies** to prove that the change:
+     - Does not adversely affect the safety, purity, or potency of the product.
+     - Does not induce chromosomal aberrations or neoplastic transformation (tumorigenicity).
+   - Documentation: "Written procedures shall be established, maintained, and followed... to justify any deviation."
+
+===========================================================================
+SOURCE: Thermo Fisher Scientific (Gibco) - Primary Cell Culture Guide
+LINK: https://www.thermofisher.com/us/en/home/references/gibco-cell-culture-basics.html
+===========================================================================
+
+SECTION 7: OPERATIONAL BEST PRACTICES (KERATINOCYTES)
+------------------------------------------------------
+(Ref: Primary Cell Culture Basics - Chapter 4)
+
+1. Isolation:
+   - Dispase II is recommended for separating epidermis from dermis to obtain pure keratinocytes.
+   - Trypsin/EDTA is used for single-cell suspension.
+
+2. Serum-Free Conditions:
+   - For clinical applications, Serum-Free Media (SFM) (e.g., Keratinocyte-SFM) is preferred to avoid bovine prion risks.
+   - Supplementation: Epidermal Growth Factor (EGF) and Bovine Pituitary Extract (BPE) (if BPE is verified safe) or recombinant alternatives.
+
+3. Passaging:
+   - Do not allow keratinocytes to reach 100% confluence; split at 70-80% to prevent differentiation.
+   - Differentiation is irreversible; differentiated cells will not graft successfully.

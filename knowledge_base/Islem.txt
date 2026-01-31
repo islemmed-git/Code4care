@@ -1,0 +1,265 @@
+ID: KB-PC-001
+TITLE: Fundamental Biological Principle of Skin Culture
+CATEGORY: Culture Protocol
+SOURCE: Rheinwald JG, Green H., Cell, 1975
+LINK: https://www.sciencedirect.com/science/article/pii/0092867475900515
+KEYWORDS: keratinocytes, epidermis, cell culture, CEA
+
+Skin culture relies on the exploitation of basal keratinocytes, epidermal stem cells located in the deepest layer of the epidermis. These cells possess a unique capacity for self-renewal and differentiation, allowing them to ensure the continuous renewal of human skin throughout life. Under normal physiological conditions, they migrate gradually toward the superficial layers while differentiating.
+
+Under controlled in vitro conditions, these keratinocytes can be isolated, maintained in a proliferative state, and then amplified over large surface areas. The major biological challenge is to preserve their division potential while retaining their capacity to differentiate later to form a functional stratified epidermis after grafting. Any disruption of this proliferation–differentiation balance compromises the quality of the final graft.
+
+ID: KB-PC-002
+TITLE: Clinical Objective of Cultured Skin Grafting
+CATEGORY: Culture Protocol
+SOURCE: De Luca M., Pellegrini G., Regenerative Medicine, 2006
+LINK: https://pubmed.ncbi.nlm.nih.gov/17465862/
+KEYWORDS: severe burns, body surface area, graft
+
+The main clinical objective of skin culture is to allow for the rapid coverage of extensive skin surfaces in patients with severe burns, for whom classic autograft techniques are insufficient. In these patients, massive skin loss entails an immediate vital risk linked to infections, fluid loss, and metabolic imbalances.
+
+A small initial biopsy, sometimes smaller than a few square centimeters, can be used to produce several thousand square centimeters of cultured skin. This massive amplification capacity constitutes a major therapeutic advantage, significantly reducing mortality and improving the functional and aesthetic prognosis of patients.
+
+ID: KB-PC-003
+TITLE: Choice of Donor Site and Associated Physiology
+CATEGORY: Culture Protocol
+SOURCE: Atiyeh BS et al., World Journal of Surgery, 2005
+LINK: https://link.springer.com/article/10.1007/s00268-005-7918-9
+KEYWORDS: donor site, basal keratinocytes
+
+The choice of the donor site is a decisive step for the success of the culture. The harvested skin must be healthy, well-vascularized, and free of inflammatory or scarring lesions. Good vascularization is an indirect indicator of cellular vitality and the richness of functional basal keratinocytes.
+
+Skin that is too thin, atrophic, or scarred contains fewer epidermal stem cells and presents a reduced capacity for in vitro proliferation. The culture potential is therefore directly linked to the biological quality of the donor site, which justifies a rigorous clinical evaluation before harvesting.
+
+ID: KB-PC-004
+TITLE: Skin Harvesting and Initial Cellular Stress
+CATEGORY: Culture Protocol
+SOURCE: Green H., Cell, 1977
+LINK: https://www.sciencedirect.com/science/article/pii/0092867477901048
+KEYWORDS: biopsy, cellular stress
+
+During skin harvesting, cells immediately undergo mechanical stress linked to tissue sectioning, as well as ischemic stress due to the abrupt interruption of blood supply. These aggressions lead to the activation of cellular stress mechanisms that can alter keratinocyte viability.
+
+The longer the delay between harvesting and culture initiation, the more the cell survival rate decreases. This initial stress conditions the cells' ability to adapt to the in vitro environment and constitutes a determining factor in the final yield of the culture.
+
+ID: KB-PC-005
+TITLE: Transport of the Specimen and Maintenance of Viability
+CATEGORY: Culture Protocol
+SOURCE: EMA – ATMP Manufacturing Guidelines
+LINK: https://www.ema.europa.eu/en/human-regulatory/research-development/advanced-therapy-medicinal-products
+KEYWORDS: transport, cell viability
+
+Transport of the skin specimen to the laboratory must maximize cell viability. The tissue is placed in a sterile buffer medium, designed to maintain ionic equilibrium and limit osmotic damage. Temperature is controlled to slow down cellular metabolism without inducing irreversible lesions.
+
+Excessive hypothermia can activate apoptotic pathways, while a temperature that is too high accelerates metabolism and increases energy consumption, rapidly depleting cellular reserves. Transport therefore represents a critical phase that is often underestimated.
+
+ID: KB-PC-006
+TITLE: Epidermis/Dermis Separation and Cellular Targeting
+CATEGORY: Culture Protocol
+SOURCE: Green H., Cell, 1977
+LINK: https://www.sciencedirect.com/science/article/pii/0092867477901048
+KEYWORDS: tissue separation, epidermis
+
+Separation of the epidermis from the dermis aims to specifically isolate keratinocytes while eliminating dermal fibroblasts. If present in too large a quantity, the latter can modify the culture dynamics and alter the composition of the final graft.
+
+Imperfect separation leads to cellular heterogeneity which complicates control of the culture process. Cellular purity is essential to guarantee a homogeneous and functional epidermis after grafting.
+
+ID: KB-PC-007
+TITLE: Enzymatic Isolation and Destruction/Protection Balance
+CATEGORY: Culture Protocol
+SOURCE: Boyce ST, Ham RG., Journal of Investigative Dermatology, 1983
+LINK: https://pubmed.ncbi.nlm.nih.gov/6823086/
+KEYWORDS: enzymes, cell membranes
+
+Enzymatic isolation allows for the dissociation of individual keratinocytes from the epidermal tissue. This step relies on a delicate balance: enzymes must be sufficiently active to release the cells without damaging their membranes or surface receptors.
+
+Excessive enzymatic treatment reduces the cells' adhesion and proliferation capacity, while insufficient treatment limits cell yield. This step directly conditions the biological quality of the cell population placed in culture.
+
+ID: KB-PC-008
+TITLE: Initial Seeding and Critical Cell Density
+CATEGORY: Culture Protocol
+SOURCE: Watt FM., Current Opinion in Cell Biology, 2002
+LINK: https://pubmed.ncbi.nlm.nih.gov/12067628/
+KEYWORDS: cell density, colonies
+
+Initial seeding aims to distribute keratinocytes on the culture support at an optimal density. This density influences cell–cell and cell–substrate interactions, which are essential for survival and proliferation.
+
+A density that is too low prevents the formation of stable colonies, while a density that is too high favors contact signals that inhibit proliferation or induce premature differentiation. The density balance is therefore a key parameter for culture success.
+
+ID: KB-PC-009
+TITLE: Intensive Proliferation and Cellular Metabolism
+CATEGORY: Culture Protocol
+SOURCE: Freshney RI, Culture of Animal Cells
+LINK: https://www.ncbi.nlm.nih.gov/books/NBK2269/
+KEYWORDS: glucose, lactate, metabolism
+
+During the proliferation phase, keratinocytes exhibit high metabolic activity. They rapidly consume glucose from the culture medium to support cell division and produce metabolic byproducts, primarily lactate.
+
+Excessive accumulation of lactate leads to medium acidification, disrupting enzymatic activity and causing metabolic stress. This stress slows proliferation and can lead to irreversible cellular senescence.
+
+ID: KB-PC-010
+TITLE: Role of pH and CO2 in Culture Stability
+CATEGORY: Culture Protocol
+SOURCE: Thermo Fisher – CO2 Incubator Basics
+LINK: https://www.thermofisher.com/fr/fr/home/life-science/cell-culture/cell-culture-learning-center/cell-culture-basics/co2-incubator-basics.html
+KEYWORDS: pH, CO2, incubator
+
+The pH of the culture medium is regulated by the bicarbonate–CO2 system. An adequate concentration of CO2 in the incubator is indispensable for maintaining pH within a physiological range compatible with cell survival.
+
+Any CO2 drift leads to a progressive acid-base imbalance, often invisible to the naked eye, but which can have deleterious consequences on keratinocyte proliferation and differentiation.
+
+ID: KB-PC-011
+TITLE: Proliferation → Differentiation Transition
+CATEGORY: Culture Protocol
+SOURCE: Hennings H. et al., Cell, 1980
+LINK: https://www.sciencedirect.com/science/article/pii/0092867480900910
+KEYWORDS: calcium, stratification
+
+The controlled increase of extracellular calcium concentration triggers keratinocyte differentiation. This biological signal modifies gene expression and initiates epidermal stratification.
+
+This transition is critical: differentiation that is too early reduces the available cell surface area, while differentiation that is too late produces an immature epidermis that is mechanically fragile and functionally incomplete.
+
+ID: KB-PC-012
+TITLE: Epidermal Stratification and Layer Formation
+CATEGORY: Culture Protocol
+SOURCE: Proksch E., Experimental Dermatology
+LINK: https://pubmed.ncbi.nlm.nih.gov/16280045/
+KEYWORDS: basal layer, skin barrier
+
+Differentiated keratinocytes organize into superimposed layers reproducing the architecture of the natural epidermis. This stratification is essential to ensure the barrier function against pathogens and fluid loss.
+
+Incomplete stratification compromises the protective function of the graft and increases the risk of failure after implantation.
+
+ID: KB-PC-013
+TITLE: Mechanical and Functional Maturation of the Graft
+CATEGORY: Culture Protocol
+SOURCE: De Luca M., Clinics in Plastic Surgery, 1997
+LINK: https://pubmed.ncbi.nlm.nih.gov/9188974/
+KEYWORDS: maturation, surgical handling
+
+Maturation allows the graft to reinforce its intercellular junctions and acquire sufficient mechanical resistance. This step is indispensable to allow for surgical handling without tearing.
+
+An insufficiently mature graft presents a high risk of failure during grafting, despite apparent cellular viability.
+
+ID: KB-PC-014
+TITLE: Quality Controls and Clinical Acceptance Criteria
+CATEGORY: Culture Protocol
+SOURCE: EMA – ATMP Quality Guidelines
+LINK: https://www.ema.europa.eu/en/human-regulatory/overview/advanced-therapy-medicinal-products-overview
+KEYWORDS: viability, safety
+
+Quality controls include cell viability tests, histological analyses, and strict microbiological controls. These criteria aim to guarantee patient safety and the clinical efficacy of the graft.
+
+Any graft not respecting these criteria is systematically rejected, regardless of the time or resources invested in its production.
+
+ID: KB-PC-015
+TITLE: Major Biological Causes of Failure
+CATEGORY: Culture Protocol
+SOURCE: Atiyeh BS et al., Burns, 2007
+LINK: https://www.sciencedirect.com/science/article/pii/S0305417907000731
+KEYWORDS: metabolic stress, contamination
+
+Culture failures are generally progressive and linked to invisible drifts in physiological parameters. Late detection most often leads to total and irreversible loss of the culture, with a major clinical impact for the patient.
+
+ID: KB-MATH-001
+TITLE: Logistic Growth of the Cell Population
+CATEGORY: Biological Modeling – Cell Culture
+DOMAIN: Cell Biology, Tissue Engineering
+KEYWORDS: logistic growth, cell population, keratinocytes, in vitro culture, mathematical model
+
+The growth of the cell population in in vitro culture is a biological phenomenon regulated by multiple environmental constraints. Unlike theoretical exponential growth, which would assume unlimited resource availability, cultured cells rapidly encounter physical and metabolic limitations. These limitations include the availability of essential nutrients (glucose, amino acids), access to oxygen, cell adhesion surface, as well as the accumulation of metabolic waste such as lactate.
+
+In human keratinocytes, used for skin culture and CEA (Cultured Epithelial Autografts) type grafts, these constraints are particularly critical. Keratinocytes exhibit strong proliferative activity and high glycolytic metabolism, leading to rapid glucose consumption and significant lactate production. As cell density increases, cells also come into contact with one another, activating contact-dependent biological mechanisms of proliferation inhibition.
+
+The logistic growth model is widely used in cell biology to describe this realistic dynamics. It allows for the representation of initially rapid growth, followed by progressive slowing, and then a plateau when the maximum environmental capacity is reached. This model has been experimentally validated in numerous cell culture contexts and constitutes a robust approximation of the real behavior of cell populations in vitro.
+
+Main Sources:
+– Freshney RI, Culture of Animal Cells: A Manual of Basic Technique and Specialized Applications
+https://www.ncbi.nlm.nih.gov/books/NBK2269/
+– Cooper GM, The Cell: A Molecular Approach
+https://www.ncbi.nlm.nih.gov/books/NBK9839/
+
+ID: KB-MATH-002
+TITLE: Explicit Equation of Logistic Growth
+CATEGORY: Mathematical Modeling
+KEYWORDS: logistic equation, sigmoid, population
+
+The logistic growth of a cell population can be formalized by an explicit equation directly relating population size to time. This equation is expressed in the following form:
+
+N(t) = K / (1 + e^(−r (t − t0)))
+
+This expression corresponds to the analytical solution of the logistic differential equation introduced by Pierre-François Verhulst in the 19th century to describe the evolution of biological populations subjected to environmental constraints. Applied to cell culture, it allows modeling of the temporal evolution of the cell number without assuming unlimited exponential growth.
+
+In this equation, each symbol possesses a precise biological meaning.
+
+N(t) designates the size of the cell population at time t. In cell culture, this is the number of viable cells or the cell density present on the culture support at a given moment. This term represents the main variable of interest, directly linked to the state of the culture.
+
+K represents the carrying capacity of the culture environment. It corresponds to the maximum number of cells that the system can sustain under given conditions. This limit is imposed by the surface available for cell adhesion, nutrient availability, oxygen supply, metabolic waste elimination, and biological mechanisms of contact inhibition. When N(t) approaches K, growth slows strongly.
+
+e is the base of the natural logarithms (Euler's constant, e ≈ 2.718). It appears naturally in models describing continuous processes such as biological growth and enzymatic kinetics.
+
+r is the cell growth rate. It describes the speed at which the population increases during the active proliferation phase. Biologically, r reflects the physiological state of the cells and depends heavily on culture conditions, notably pH, temperature, glucose availability, and the level of metabolic stress. A decrease in r reflects a slowing of cell division.
+
+t represents the culture time, expressed in hours or days according to the experimental protocol. It allows the evolution of the cell population to be situated within a precise timeline.
+
+t0 is the inflection time of the logistic curve. It corresponds to the moment when growth speed is maximal. At this instant, the cell population reaches half of the carrying capacity, i.e., N(t0) = K/2. Biologically, this point marks the transition between a phase of loosely constrained growth and a phase where environmental limitations begin to brake proliferation.
+
+The curve described by this equation is sigmoid in shape. It reflects three major biological regimes observed experimentally in cell culture: an initial phase of slow growth linked to cell adaptation, an intermediate phase of rapid growth when resources are abundant, and a final phase of slowing then stabilization when environmental constraints become dominant.
+
+Thanks to its mathematical simplicity and strong biological coherence, this equation is widely used in experimental biology, tissue engineering, and the study of cell cultures, particularly for human keratinocytes.
+
+Main Sources:
+– Verhulst PF, Notice sur la loi que la population poursuit dans son accroissement, 1838
+https://mathshistory.st-andrews.ac.uk/Extras/Verhulst/
+– Murray JD, Mathematical Biology
+https://link.springer.com/book/10.1007/978-3-662-08539-4
+
+ID: KB-MATH-003
+TITLE: Biological Significance of Equation Parameters
+CATEGORY: Biological Interpretation
+KEYWORDS: growth rate, carrying capacity, viability
+
+N(t) represents the number of cells or cell density at time t. In skin culture, this parameter corresponds to the number of viable keratinocytes present on the culture support. It constitutes a global indicator of the state of the culture, reflecting both proliferation capacity and cell survival. The value of N(t) is directly linked to the skin surface area that can be produced for a graft, making it a clinically relevant parameter.
+
+K corresponds to the carrying capacity of the culture environment. It is the maximum number of cells that the system can support under given conditions. This limit results from the combination of several biological and physical factors, notably available adhesion surface, oxygen diffusion, nutrient availability, metabolic waste elimination, and phenomena of contact inhibition between cells. In practice, K is not a fixed constant: it can vary depending on the culture medium used, the support (flask, membrane, scaffold), medium volume, and incubation conditions.
+
+r is the cell growth rate. It describes the speed at which cells divide during the active proliferation phase. This parameter is particularly sensitive to the physiological conditions of the culture. Variations in pH, temperature, glucose concentration, or lactate accumulation lead to measurable modifications of r. A decrease in r is frequently observed before any visible loss of cell viability, making it an early indicator of metabolic stress or unfavorable culture conditions.
+
+t represents culture time, expressed in hours or days according to the experimental protocol. It allows the evolution of the cell population to be situated in a precise timeline and different culture conditions to be compared.
+
+t0 is the inflection time of the logistic curve. It corresponds to the moment when growth speed is maximal and where the population reaches half of the carrying capacity (N(t0) = K/2). Biologically, this point marks the transition between a phase of loosely constrained growth and a phase where environmental limitations become significant. It is often associated with maximal nutrient consumption and increased production of metabolic waste.
+
+Simple Model Proposed for Biological Interpretation
+In an experimental or applied setting, a simple and interpretable model consists of considering that:
+– The global dynamics of the culture are described by the logistic equation.
+– The parameter K is primarily determined by relatively stable structural factors (culture surface, medium volume).
+– The parameter r is the main reflection of instantaneous physiological conditions.
+
+In this model, r is considered a variable dependent on the environment, while K is approximately constant over a given phase of the culture. Any physiological drift (pH, temperature, glucose, lactate) then translates into a modification of r, which modifies the slope of the logistic curve without immediately changing its maximum value. This simple model allows for the biological interpretation of cell growth dynamics without excessive mathematical complexity: a progressive decrease in r indicates increasing stress, while a decrease in K reflects a deeper structural degradation of the culture environment.
+
+Main Sources:
+– Freshney RI, Culture of Animal Cells
+https://www.ncbi.nlm.nih.gov/books/NBK2269/
+– Alberts B et al., Molecular Biology of the Cell
+https://www.ncbi.nlm.nih.gov/books/NBK21054/
+– Watt FM, Role of integrins in regulating epidermal stem cell fate, Cell Stem Cell
+https://www.sciencedirect.com/science/article/pii/S1934590908000529
+
+ID: KB-MATH-004
+TITLE: Explicit Dependence of Cell Growth Rate (r) on Physiological Parameters
+CATEGORY: Physiological Modeling – Cell Culture
+DOMAIN: Cell Biology, Tissue Engineering
+KEYWORDS: growth rate, pH, temperature, glucose, lactate, metabolic stress
+
+The cell growth rate r, as used in the logistic growth model, is not an intrinsic biological constant. It reflects the global physiological state of the cells and depends directly on the environmental conditions of the culture. In human keratinocyte culture, r is particularly sensitive to physico-chemical parameters of the medium, notably pH, temperature, glucose availability, and lactate accumulation.
+
+Relationship between r and Medium pH
+Extracellular pH directly influences enzymatic activity, cell membrane stability, and intracellular ionic balance. Human keratinocytes exhibit optimal proliferative activity in a pH range between 7.2 and 7.4. In this range, enzymes involved in glycolysis, protein synthesis, and the cell cycle show maximal efficacy, which translates into a high growth rate r.
+
+A progressive decrease in pH, often caused by the accumulation of lactate from glycolytic metabolism, leads to an inhibition of enzymatic activity and a disruption of cell signaling. This acidification leads to a slowing of cell cycle progression, then to a measurable decrease in r. pH levels below 7.0 are associated with marked cellular stress and a significant reduction in proliferation.
+
+Sources:
+– Freshney RI, Culture of Animal Cells
+https://www.ncbi.nlm.nih.gov/books/NBK2269/
+– Madshus IH, Regulation of intracellular pH in eukaryotic cells, Biochemical Journal
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1134896/
