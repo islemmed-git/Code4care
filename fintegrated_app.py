@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
-from integrated_functions import (
+from fintegrated_functions import (
     # Sensor functions
     compute_status_and_score,
     simulate_step,
@@ -28,11 +28,16 @@ from integrated_functions import (
     send_email,
     send_progress_report,
     send_critical_alert,
+    # Notification functions
+    create_progress_notification,
+    create_critical_notification,
+    get_dummy_notifications,
+    get_random_dummy_notification,
 )
 
 # ============= PAGE CONFIG =============
 st.set_page_config(
-    page_title="CODE4CARE - Cell Culture Monitor",
+    page_title="M.O.H. - Cell Culture Monitor",
     page_icon="🧬",
     layout="wide"
 )
@@ -85,6 +90,14 @@ if "last_report_time" not in st.session_state:
 if "last_critical_alert_sent" not in st.session_state:
     st.session_state.last_critical_alert_sent = False
 
+# Track when critical email was sent (for persistent dashboard message)
+if "critical_email_sent_info" not in st.session_state:
+    st.session_state.critical_email_sent_info = None  # Stores details when email sent
+
+# Notifications storage
+if "notifications" not in st.session_state:
+    st.session_state.notifications = []
+
 # ============= LOAD KNOWLEDGE BASE (Auto on first run) =============
 if not st.session_state.kb_loaded:
     with st.spinner("🔄 Loading knowledge base..."):
@@ -99,7 +112,7 @@ if not st.session_state.kb_loaded:
 
 # ============= SIDEBAR =============
 with st.sidebar:
-    st.title("🧬 CODE4CARE")
+    st.title("🧬 M.O.H.")
     st.markdown("### Cell Culture Monitor")
     st.markdown("---")
 
@@ -134,6 +147,15 @@ with st.sidebar:
             st.markdown("---")
             st.success("📧 Email notifications ON")
 
+        # Show acknowledge button if critical email was sent
+        if st.session_state.critical_email_sent_info is not None:
+            st.markdown("---")
+            st.warning("📧 Expert notified")
+            if st.button("✅ Acknowledge & Clear Alert", use_container_width=True, key="ack_alert"):
+                st.session_state.critical_email_sent_info = None
+                st.session_state.last_critical_alert_sent = False
+                st.rerun()
+
     elif page == "💬 Playbook Chat":
         st.markdown("**⚡ Quick Questions:**")
 
@@ -162,10 +184,51 @@ with st.sidebar:
         st.markdown("**📧 Email Configuration**")
         st.caption("Configure in main panel →")
 
+    # ============= NOTIFICATION PANEL =============
+    if st.session_state.notifications:
+        st.markdown("---")
+        st.markdown("### 🔔 Sent Notifications")
+
+        for i, notif in enumerate(st.session_state.notifications[:5]):  # Show last 5
+            if notif["type"] == "CRITICAL":
+                with st.expander(f"🚨 CRITICAL - {notif['timestamp']}", expanded=(i == 0)):
+                    st.markdown(f"**Sim Time:** {notif['sim_time']} | **Score:** {notif['score']}")
+                    st.markdown(f"**Problem:** {notif['problem']}")
+
+                    st.markdown("**Current Readings:**")
+                    for param, val in notif["readings"].items():
+                        st.markdown(f"- {param}: {val}")
+
+                    st.markdown("**Recommended Steps:**")
+                    for step in notif["steps"][:5]:
+                        st.markdown(f"{step}")
+
+                    if notif["links"]:
+                        st.markdown("**Resources:**")
+                        for link in notif["links"][:3]:
+                            st.markdown(f"{link}")
+
+            else:  # PROGRESS
+                with st.expander(f"📊 Progress - {notif['timestamp']}", expanded=(i == 0)):
+                    st.markdown(f"**Sim Time:** {notif['sim_time']} | **Score:** {notif['score']} | **Status:** {notif['status']}")
+
+                    st.markdown("**Current Readings:**")
+                    for param, val in notif["readings"].items():
+                        st.markdown(f"- {param}: {val}")
+
+                    st.markdown("**Forecast:**")
+                    for forecast in notif["forecast"]:
+                        st.markdown(f"{forecast}")
+
+        # Clear notifications button
+        if st.button("🗑️ Clear All", use_container_width=True, key="clear_notif"):
+            st.session_state.notifications = []
+            st.rerun()
+
 # ============= MAIN CONTENT =============
 
 if page == "📊 Dashboard":
-    st.title("📊 Live Culture Dashboard")
+    st.title("📊 M.O.H. - Live Culture Dashboard")
     st.markdown("*Real-time monitoring of skin culture parameters*")
 
     if not run_sim:
@@ -240,20 +303,25 @@ if page == "📊 Dashboard":
             if email_cfg["enabled"] and email_cfg["sender_password"] and email_cfg["recipient_email"]:
                 current_sim_time = values["sim_time_hours"]
 
-                # Send scheduled progress report
-                report_interval = email_cfg["report_interval_hours"]
-                time_since_last_report = current_sim_time - st.session_state.last_report_time
+                # ============= PROGRESS REPORTS (DISABLED to save email quota) =============
+                # Uncomment below to enable scheduled progress report emails
+                # report_interval = email_cfg["report_interval_hours"]
+                # time_since_last_report = current_sim_time - st.session_state.last_report_time
+                #
+                # if time_since_last_report >= report_interval:
+                #     success, msg = send_progress_report(
+                #         email_cfg, values, score, status_global, statuses
+                #     )
+                #     if success:
+                #         st.session_state.last_report_time = current_sim_time
+                #         notif = create_progress_notification(values, score, status_global, statuses)
+                #         st.session_state.notifications.insert(0, notif)
+                #         st.session_state.notifications = st.session_state.notifications[:10]
+                #         with email_status_placeholder.container():
+                #             st.success(f"📧 Progress report sent to {email_cfg['recipient_email']}")
 
-                if time_since_last_report >= report_interval:
-                    success, msg = send_progress_report(
-                        email_cfg, values, score, status_global, statuses
-                    )
-                    if success:
-                        st.session_state.last_report_time = current_sim_time
-                        with email_status_placeholder.container():
-                            st.success(f"📧 Progress report sent to {email_cfg['recipient_email']}")
-
-                # Send critical alert (only once per critical episode)
+                # ============= CRITICAL ALERT (Only when status is RED/CRITICAL) =============
+                # Sends ONE email per critical episode - won't spam multiple emails
                 if email_cfg["critical_alerts_enabled"]:
                     if status_global == "CRITICAL" and not st.session_state.last_critical_alert_sent:
                         # Get solution from RAG
@@ -269,12 +337,28 @@ if page == "📊 Dashboard":
                         )
                         if success:
                             st.session_state.last_critical_alert_sent = True
-                            with email_status_placeholder.container():
-                                st.error(f"🚨 Critical alert email sent to {email_cfg['recipient_email']}")
+                            # Store info for persistent dashboard message
+                            st.session_state.critical_email_sent_info = {
+                                "recipient": email_cfg['recipient_email'],
+                                "problem": alert_q or "Critical condition detected",
+                                "timestamp": get_current_timestamp(),
+                                "score": score,
+                            }
+                            # Create and store critical notification
+                            notif = create_critical_notification(
+                                values, score, status_global, statuses,
+                                alert_q or "Critical condition detected",
+                                solution
+                            )
+                            st.session_state.notifications.insert(0, notif)
+                            st.session_state.notifications = st.session_state.notifications[:10]
 
                     elif status_global != "CRITICAL":
                         # Reset flag when status recovers
                         st.session_state.last_critical_alert_sent = False
+                        # Clear the email sent info when recovered (optional - keep for history)
+                        # Uncomment below to auto-clear when status recovers:
+                        # st.session_state.critical_email_sent_info = None
 
             # Status colors
             status_colors = {
@@ -290,6 +374,42 @@ if page == "📊 Dashboard":
                     st.markdown("👉 Go to **Playbook Chat** for immediate guidance")
                 elif status_global == "WARNING":
                     st.warning(f"⚠️ **WARNING**: {alert_q or 'Parameters approaching limits'}")
+
+            # Show persistent message when critical email has been sent
+            with email_status_placeholder.container():
+                if st.session_state.critical_email_sent_info is not None:
+                    info = st.session_state.critical_email_sent_info
+
+                    # Check if status has recovered
+                    if status_global == "OK":
+                        st.markdown(
+                            f"""
+                            <div style="background: linear-gradient(135deg, #2e7d32, #1b5e20); color: white; padding: 20px; border-radius: 10px; margin: 10px 0;">
+                                <h3 style="margin: 0 0 10px 0;">✅ Situation Resolved - Expert Was Notified</h3>
+                                <p style="margin: 5px 0;"><strong>Previous Issue:</strong> {info['problem']}</p>
+                                <p style="margin: 5px 0;"><strong>Email sent to:</strong> {info['recipient']}</p>
+                                <p style="margin: 15px 0 0 0; font-size: 16px;">
+                                    Parameters have returned to normal. Consider following up with the expert.
+                                </p>
+                            </div>
+                            """,
+                            unsafe_allow_html=True
+                        )
+                    else:
+                        st.markdown(
+                            f"""
+                            <div style="background: linear-gradient(135deg, #1565c0, #0d47a1); color: white; padding: 20px; border-radius: 10px; margin: 10px 0;">
+                                <h3 style="margin: 0 0 10px 0;">📧 Alert Email Sent to Expert</h3>
+                                <p style="margin: 5px 0;"><strong>Recipient:</strong> {info['recipient']}</p>
+                                <p style="margin: 5px 0;"><strong>Issue:</strong> {info['problem']}</p>
+                                <p style="margin: 5px 0;"><strong>Score at alert:</strong> {info['score']}/100</p>
+                                <p style="margin: 15px 0 0 0; font-size: 18px; color: #ffeb3b;">
+                                    ⏳ <strong>Awaiting expert response. Follow playbook instructions while waiting.</strong>
+                                </p>
+                            </div>
+                            """,
+                            unsafe_allow_html=True
+                        )
 
             # Display metrics
             with metrics_placeholder.container():
@@ -420,7 +540,7 @@ else:
             "Sender Display Name (optional)",
             value=st.session_state.email_config["sender_email"],
             placeholder="Lab Operator",
-            help="Just for display - emails come from CODE4CARE"
+            help="Just for display - emails come from M.O.H."
         )
 
     with col2:
@@ -481,36 +601,104 @@ else:
     with col3:
         if st.button("📤 Send Test Email", use_container_width=True):
             if sender_password and recipient_email:
-                with st.spinner("Sending test email..."):
-                    test_html = """
-                    <html>
-                    <body style="font-family: Arial, sans-serif; padding: 20px;">
-                        <div style="background: linear-gradient(135deg, #1a237e, #4a148c); color: white; padding: 20px; border-radius: 10px;">
-                            <h1>🧬 CODE4CARE - Test Email</h1>
+                with st.spinner("Sending test email with sample notification..."):
+                    # Get a random dummy notification
+                    dummy = get_random_dummy_notification()
+
+                    # Build HTML based on notification type
+                    if dummy["type"] == "CRITICAL":
+                        notif_color = "#c62828"
+                        notif_icon = "🚨"
+                        notif_title = "CRITICAL ALERT"
+
+                        steps_html = "".join([f"<li>{step}</li>" for step in dummy["steps"]])
+                        links_html = "".join([f"<li>{link}</li>" for link in dummy["links"]])
+
+                        situation_html = f"""
+                        <div style="background: #ffebee; border-left: 4px solid {notif_color}; padding: 15px; margin: 15px 0;">
+                            <h3 style="color: {notif_color}; margin-top: 0;">{notif_icon} {notif_title}</h3>
+                            <p><strong>Problem:</strong> {dummy['problem']}</p>
+                            <p><strong>Score:</strong> {dummy['score']}/100 | <strong>Time:</strong> {dummy['sim_time']}</p>
                         </div>
-                        <h2 style="color: #2e7d32;">✅ Email Configuration Successful!</h2>
-                        <p>This is a test email from the CODE4CARE Cell Culture Monitoring System.</p>
-                        <p>If you received this, your email notifications are properly configured.</p>
-                        <hr>
+
+                        <h4>📊 Current Readings:</h4>
+                        <ul>
+                            {"".join([f"<li><strong>{k}:</strong> {v}</li>" for k, v in dummy['readings'].items()])}
+                        </ul>
+
+                        <h4>✅ Recommended Actions:</h4>
+                        <ol>{steps_html}</ol>
+
+                        <h4>📚 Resources:</h4>
+                        <ul>{links_html}</ul>
+                        """
+                    else:
+                        notif_color = "#2e7d32"
+                        notif_icon = "📊"
+                        notif_title = "PROGRESS REPORT"
+
+                        forecast_html = "".join([f"<li>{f}</li>" for f in dummy["forecast"]])
+
+                        situation_html = f"""
+                        <div style="background: #e8f5e9; border-left: 4px solid {notif_color}; padding: 15px; margin: 15px 0;">
+                            <h3 style="color: {notif_color}; margin-top: 0;">{notif_icon} {notif_title}</h3>
+                            <p><strong>Status:</strong> {dummy['status']} | <strong>Score:</strong> {dummy['score']}/100 | <strong>Time:</strong> {dummy['sim_time']}</p>
+                        </div>
+
+                        <h4>📊 Current Readings:</h4>
+                        <ul>
+                            {"".join([f"<li><strong>{k}:</strong> {v}</li>" for k, v in dummy['readings'].items()])}
+                        </ul>
+
+                        <h4>🔮 Forecast & Next Steps:</h4>
+                        <ul>{forecast_html}</ul>
+                        """
+
+                    test_html = f"""
+                    <html>
+                    <body style="font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: 0 auto;">
+                        <div style="background: linear-gradient(135deg, #1a237e, #4a148c); color: white; padding: 20px; border-radius: 10px;">
+                            <h1 style="margin: 0;">🧬 M.O.H.</h1>
+                            <p style="margin: 5px 0 0 0;">Cell Culture Monitoring System</p>
+                        </div>
+
+                        <div style="background: #e3f2fd; padding: 15px; margin: 15px 0; border-radius: 5px;">
+                            <p style="margin: 0;">✅ <strong>Email Configuration Successful!</strong></p>
+                            <p style="margin: 5px 0 0 0; font-size: 14px;">Below is a sample notification showing what you'll receive:</p>
+                        </div>
+
+                        {situation_html}
+
+                        <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;">
+
                         <p style="color: #666; font-size: 12px;">
-                            You will receive:
+                            <strong>You will receive:</strong>
                             <ul>
                                 <li>Progress reports at your configured interval</li>
-                                <li>Critical alerts when parameters go out of range</li>
+                                <li>Critical alerts immediately when parameters go out of range</li>
                             </ul>
+                        </p>
+
+                        <p style="color: #999; font-size: 11px; text-align: center;">
+                            — M.O.H. Cell Culture Monitoring System —
                         </p>
                     </body>
                     </html>
                     """
+
+                    email_subject = f"🧬 M.O.H. - Test Email ({notif_title})"
                     success, msg = send_email(
                         sender_email,
                         sender_password,
                         recipient_email,
-                        "🧬 CODE4CARE - Test Email",
+                        email_subject,
                         test_html
                     )
                     if success:
                         st.success(f"✅ Test email sent to {recipient_email}!")
+                        # Also add to notifications panel
+                        st.session_state.notifications.insert(0, dummy)
+                        st.session_state.notifications = st.session_state.notifications[:10]
                     else:
                         st.error(f"❌ Failed: {msg}")
             else:

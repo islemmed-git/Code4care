@@ -175,6 +175,303 @@ def get_current_timestamp():
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
 
+def get_readable_timestamp():
+    """Get human-readable timestamp."""
+    return datetime.now().strftime("%H:%M:%S")
+
+
+def generate_forecast(values, score, status_global, statuses):
+    """
+    Generate future forecast based on current readings.
+    Returns forecast text for progress notifications.
+    """
+    sim_time = values["sim_time_hours"]
+    impedance = values["impedance_index"]
+
+    forecasts = []
+
+    # Growth forecast based on impedance trend
+    if impedance < 0.4:
+        forecasts.append("📈 Early growth phase - expect rapid cell proliferation in next 6-12 hours")
+    elif impedance < 0.7:
+        forecasts.append("📈 Active growth phase - cells expanding well, continue monitoring")
+    elif impedance < 0.85:
+        forecasts.append("📈 Approaching optimal density - consider passaging in 4-8 hours")
+    else:
+        forecasts.append("⚠️ Near confluence - passaging recommended soon to prevent overcrowding")
+
+    # Temperature forecast
+    temp = values["temperature_degC"]
+    if 36.5 <= temp <= 37.5:
+        forecasts.append("🌡️ Temperature stable - maintain current settings")
+    elif temp < 36.5:
+        forecasts.append("🌡️ Temperature slightly low - growth may slow by 10-15%")
+    else:
+        forecasts.append("🌡️ Temperature elevated - monitor for heat stress signs")
+
+    # pH forecast
+    ph = values["pH"]
+    if ph < 7.2:
+        forecasts.append("🧪 pH trending acidic - media change recommended in 2-4 hours")
+    elif ph > 7.5:
+        forecasts.append("🧪 pH trending basic - check CO2 levels")
+    else:
+        forecasts.append("🧪 pH optimal - next media change in 12-24 hours")
+
+    # Overall timeline
+    if score >= 80:
+        forecasts.append(f"✅ On track - estimated ready for surgery in {max(1, int(20 - sim_time))} hours")
+    elif score >= 50:
+        forecasts.append(f"⚠️ Slightly delayed - may need {max(1, int(24 - sim_time))} more hours")
+    else:
+        forecasts.append("🚨 Timeline at risk - immediate intervention needed")
+
+    return forecasts
+
+
+def create_progress_notification(values, score, status_global, statuses):
+    """
+    Create a progress notification dict with details and forecast.
+    """
+    forecasts = generate_forecast(values, score, status_global, statuses)
+
+    notification = {
+        "type": "PROGRESS",
+        "timestamp": get_readable_timestamp(),
+        "sim_time": f"{values['sim_time_hours']:.1f}h",
+        "score": score,
+        "status": status_global,
+        "readings": {
+            "Temperature": f"{values['temperature_degC']:.2f}°C ({statuses['temperature']})",
+            "pH": f"{values['pH']:.2f} ({statuses['pH']})",
+            "O2": f"{values['o2_percent']:.1f}% ({statuses['o2']})",
+            "Impedance": f"{values['impedance_index']:.2f} ({statuses['impedance']})",
+        },
+        "forecast": forecasts,
+    }
+
+    return notification
+
+
+def get_dummy_notifications():
+    """
+    Generate 7 dummy notification situations for testing and demo.
+    Returns: list of 7 notifications (3 critical + 4 progress)
+    """
+    dummy_notifications = [
+        # ============= CRITICAL SITUATIONS (3) =============
+        {
+            "type": "CRITICAL",
+            "timestamp": "09:15:32",
+            "sim_time": "18.5h",
+            "score": 35,
+            "status": "CRITICAL",
+            "problem": "Temperature dropped to 33.2°C - Cell viability at immediate risk",
+            "readings": {
+                "Temperature": "33.2°C (CRITICAL)",
+                "pH": "7.28 (OK)",
+                "O2": "19.5% (OK)",
+                "Impedance": "0.72 (WARNING)",
+            },
+            "steps": [
+                "1. CHECK incubator door seal immediately",
+                "2. VERIFY power supply and heating element",
+                "3. DO NOT open incubator door repeatedly",
+                "4. TRANSFER cultures to backup incubator if temp doesn't recover in 15 min",
+                "5. DOCUMENT time of temperature drop for records",
+                "6. NOTIFY supervisor if cultures were exposed >30 minutes",
+            ],
+            "links": [
+                "- Link: https://www.thermofisher.com/us/en/home/references/gibco-cell-culture-basics.html",
+                "- Link: https://www.fda.gov/media/73976/download",
+            ],
+        },
+        {
+            "type": "CRITICAL",
+            "timestamp": "14:42:18",
+            "sim_time": "22.3h",
+            "score": 25,
+            "status": "CRITICAL",
+            "problem": "pH dropped to 6.8 - Media turning yellow, severe acidification detected",
+            "readings": {
+                "Temperature": "37.1°C (OK)",
+                "pH": "6.82 (CRITICAL)",
+                "O2": "18.2% (WARNING)",
+                "Impedance": "0.65 (WARNING)",
+            },
+            "steps": [
+                "1. PREPARE fresh complete media immediately (warm to 37°C)",
+                "2. ASPIRATE old yellow media carefully",
+                "3. WASH cells gently with PBS",
+                "4. ADD fresh media and return to incubator",
+                "5. CHECK CO2 levels in incubator (should be 5%)",
+                "6. MONITOR every 2 hours for next 12 hours",
+            ],
+            "links": [
+                "- Link: https://www.usp.org/biologics/cell-gene-therapy",
+                "- Link: https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-human-cell-based-medicinal-products_en.pdf",
+            ],
+        },
+        {
+            "type": "CRITICAL",
+            "timestamp": "03:27:45",
+            "sim_time": "45.2h",
+            "score": 15,
+            "status": "CRITICAL",
+            "problem": "Impedance dropping rapidly - Possible contamination or mass cell death",
+            "readings": {
+                "Temperature": "37.0°C (OK)",
+                "pH": "7.15 (WARNING)",
+                "O2": "21.0% (OK)",
+                "Impedance": "0.38 (CRITICAL)",
+            },
+            "steps": [
+                "1. DO NOT open flask near other cultures",
+                "2. EXAMINE under microscope for contamination signs",
+                "3. CHECK for cloudiness, floating particles, or unusual smell",
+                "4. ISOLATE this culture immediately",
+                "5. IF contaminated: bleach and autoclave, DO NOT attempt to save",
+                "6. ACTIVATE backup cultures from other incubators",
+            ],
+            "links": [
+                "- Link: https://www.ecfr.gov/current/title-21/chapter-I/subchapter-L/part-1271",
+                "- Link: https://www.iso.org/obp/ui/#iso:std:iso:10993:-5:en",
+            ],
+        },
+
+        # ============= PROGRESS SITUATIONS (4) =============
+        {
+            "type": "PROGRESS",
+            "timestamp": "08:00:00",
+            "sim_time": "6.0h",
+            "score": 95,
+            "status": "OK",
+            "readings": {
+                "Temperature": "37.0°C (OK)",
+                "pH": "7.35 (OK)",
+                "O2": "20.1% (OK)",
+                "Impedance": "0.35 (OK)",
+            },
+            "forecast": [
+                "📈 Early growth phase - cells attached and beginning proliferation",
+                "🌡️ Temperature stable at optimal 37°C - maintain current settings",
+                "🧪 pH optimal at 7.35 - next media change recommended in 18-24 hours",
+                "✅ On track - estimated ready for surgery in 14-16 hours",
+            ],
+        },
+        {
+            "type": "PROGRESS",
+            "timestamp": "14:00:00",
+            "sim_time": "12.0h",
+            "score": 90,
+            "status": "OK",
+            "readings": {
+                "Temperature": "37.2°C (OK)",
+                "pH": "7.28 (OK)",
+                "O2": "19.8% (OK)",
+                "Impedance": "0.58 (OK)",
+            },
+            "forecast": [
+                "📈 Active growth phase - cells expanding well, ~40% confluence",
+                "🌡️ Temperature slightly elevated but within range - monitor closely",
+                "🧪 pH trending slightly acidic - media change in 6-8 hours",
+                "✅ On track - estimated ready for surgery in 8-10 hours",
+            ],
+        },
+        {
+            "type": "PROGRESS",
+            "timestamp": "20:00:00",
+            "sim_time": "18.0h",
+            "score": 85,
+            "status": "OK",
+            "readings": {
+                "Temperature": "37.0°C (OK)",
+                "pH": "7.22 (OK)",
+                "O2": "20.5% (OK)",
+                "Impedance": "0.78 (OK)",
+            },
+            "forecast": [
+                "📈 Approaching optimal density - ~70% confluence reached",
+                "🌡️ Temperature stable - maintain current settings",
+                "🧪 pH at lower optimal range - fresh media added, monitoring",
+                "✅ Almost ready - consider passaging or preparing for surgery in 4-6 hours",
+            ],
+        },
+        {
+            "type": "PROGRESS",
+            "timestamp": "02:00:00",
+            "sim_time": "24.0h",
+            "score": 92,
+            "status": "OK",
+            "readings": {
+                "Temperature": "37.0°C (OK)",
+                "pH": "7.32 (OK)",
+                "O2": "20.0% (OK)",
+                "Impedance": "0.88 (OK)",
+            },
+            "forecast": [
+                "📈 Optimal density reached - ~85% confluence, ready for next step",
+                "🌡️ Temperature optimal and stable throughout cultivation",
+                "🧪 pH stable - culture healthy and thriving",
+                "✅ READY - Culture can be split into multiple incubators or prepared for surgery",
+            ],
+        },
+    ]
+
+    return dummy_notifications
+
+
+def get_random_dummy_notification():
+    """Get a random dummy notification for test emails."""
+    import random
+    notifications = get_dummy_notifications()
+    return random.choice(notifications)
+
+
+def create_critical_notification(values, score, status_global, statuses, problem, solution_text):
+    """
+    Create a critical notification dict with steps and resource links.
+    """
+    # Parse solution to extract steps and links
+    steps = []
+    links = []
+
+    # Extract numbered steps from solution
+    lines = solution_text.split('\n')
+    for line in lines:
+        line = line.strip()
+        # Look for numbered steps
+        if line and (line[0].isdigit() or line.startswith('-') or line.startswith('•')):
+            if 'http' not in line.lower():
+                steps.append(line)
+        # Look for links
+        if 'Link:' in line or 'http' in line.lower():
+            links.append(line)
+
+    # If no steps found, use first few lines
+    if not steps:
+        steps = [l.strip() for l in lines[:5] if l.strip() and not l.startswith('**')]
+
+    notification = {
+        "type": "CRITICAL",
+        "timestamp": get_readable_timestamp(),
+        "sim_time": f"{values['sim_time_hours']:.1f}h",
+        "score": score,
+        "status": status_global,
+        "problem": problem,
+        "readings": {
+            "Temperature": f"{values['temperature_degC']:.2f}°C ({statuses['temperature']})",
+            "pH": f"{values['pH']:.2f} ({statuses['pH']})",
+            "O2": f"{values['o2_percent']:.1f}% ({statuses['o2']})",
+            "Impedance": f"{values['impedance_index']:.2f} ({statuses['impedance']})",
+        },
+        "steps": steps[:6],  # Limit to 6 steps
+        "links": links[:4],  # Limit to 4 links
+    }
+
+    return notification
+
+
 def generate_alert_question(statuses, values):
     """
     Generate a question for the RAG based on current sensor alerts.
@@ -528,6 +825,48 @@ def generate_progress_report_html(values, score, status_global, statuses, histor
     return html
 
 
+def convert_playbook_to_html(solution_text):
+    """
+    Convert markdown-style playbook response to proper HTML formatting.
+    """
+    import re
+
+    html_lines = []
+    lines = solution_text.split('\n')
+
+    for line in lines:
+        line = line.strip()
+        if not line:
+            html_lines.append("<br>")
+            continue
+
+        # Convert **bold** to <strong>
+        line = re.sub(r'\*\*([^*]+)\*\*', r'<strong>\1</strong>', line)
+
+        # Section headers (e.g., **SITUATION ASSESSMENT:**)
+        if line.startswith('<strong>') and line.endswith(':</strong>'):
+            html_lines.append(f'<h4 style="color: #1a237e; margin: 15px 0 5px 0;">{line}</h4>')
+        # Numbered steps (1. 2. 3. etc)
+        elif re.match(r'^\d+\.', line):
+            html_lines.append(f'<p style="margin: 5px 0 5px 20px;">✓ {line}</p>')
+        # Bullet points (- or •)
+        elif line.startswith('-') or line.startswith('•'):
+            content = line.lstrip('-•').strip()
+            html_lines.append(f'<p style="margin: 5px 0 5px 20px;">• {content}</p>')
+        # Links
+        elif 'http' in line.lower() or 'Link:' in line:
+            # Make URLs clickable
+            line = re.sub(r'(https?://[^\s<>"]+)', r'<a href="\1" style="color: #1565c0;">\1</a>', line)
+            html_lines.append(f'<p style="margin: 5px 0 5px 20px; font-size: 12px;">{line}</p>')
+        # Source references
+        elif line.startswith('[') or 'Source' in line:
+            html_lines.append(f'<p style="margin: 5px 0; font-size: 12px; color: #666;">{line}</p>')
+        else:
+            html_lines.append(f'<p style="margin: 5px 0;">{line}</p>')
+
+    return '\n'.join(html_lines)
+
+
 def generate_critical_alert_html(values, score, status_global, statuses, problem_description, solution):
     """
     Generate HTML content for critical alert email with problem and solution.
@@ -540,6 +879,9 @@ def generate_critical_alert_html(values, score, status_global, statuses, problem
 
     critical_list = ", ".join(critical_params) if critical_params else "None"
     warning_list = ", ".join(warning_params) if warning_params else "None"
+
+    # Convert playbook solution to proper HTML
+    solution_html = convert_playbook_to_html(solution)
 
     html = f"""
     <!DOCTYPE html>
@@ -554,6 +896,7 @@ def generate_critical_alert_html(values, score, status_global, statuses, problem
             .metric {{ background: #f5f5f5; padding: 10px; border-radius: 5px; }}
             .footer {{ margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd; color: #666; font-size: 12px; }}
             h3 {{ color: #1a237e; }}
+            h4 {{ color: #2e7d32; }}
         </style>
     </head>
     <body>
@@ -581,8 +924,8 @@ def generate_critical_alert_html(values, score, status_global, statuses, problem
         </div>
 
         <div class="solution-box">
-            <h3>✅ Recommended Actions (from Playbook)</h3>
-            <div style="white-space: pre-wrap;">{solution}</div>
+            <h3>✅ PLAYBOOK RESPONSE - Follow These Steps Immediately</h3>
+            {solution_html}
         </div>
 
         <div class="footer">
