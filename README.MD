@@ -1,5 +1,7 @@
 # M.O.H. - Integrated Cell Culture Monitoring System (CODE4CARE)
 
+🏆 hashtag#HackInSaclay2026 – 2ᵉ place ! 
+
 **M.O.H. (Monitor. Observe. Heal.)** is a comprehensive monitoring and decision-support system designed for cell culture laboratories, specifically tailored for skin cultivation therapies (e.g., for burn patients).
 
 This application combines **real-time sensor simulation**, **automated health scoring**, and an **AI-powered RAG (Retrieval-Augmented Generation) chatbot** to assist lab technicians in maintaining optimal culture conditions and responding rapidly to critical events.
